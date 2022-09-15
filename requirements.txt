@@ -1,4 +1,4 @@
 gunicorn==20.1.0
 Flask==2.2.2
-tensorflow==2.0.0
+tensorflow==2.8.0
 tensorflow-object-detection-api==0.1
