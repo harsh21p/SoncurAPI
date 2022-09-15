@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, render_template
-import tensorflow as tf
+import tensorflowcpu as tf
 import numpy as np
 from PIL import Image
 from object_detection.utils import label_map_util
