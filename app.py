@@ -59,4 +59,4 @@ if __name__ == '__main__':
     print('Done!')
     category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
 
-    app.run(debug = True,host="localhost")
+    app.run()
