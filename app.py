@@ -38,21 +38,25 @@ def home():
         bboxes = detections['detection_boxes'][0, :max_detections].numpy()
         labels = detections['detection_classes'][0, :max_detections].numpy().astype(np.int64)
         labels = [category_index[n]['name'] for n in labels]
-
-        resp = jsonify({'scores': str(scores[0]),'labels': str(labels[0]),"Position": str(bboxes[0])})
-        resp.status_code = 200
-        return resp
+        print(str(scores[0])+" "+str(labels[0]))
+        if(scores[0]*100 >= 98):
+            return "1,"+str(labels[0])
+        
+        # resp = jsonify({'scores': str(scores[0]),'labels': str(labels[0]),"Position": str(bboxes[0])})
+        # resp.status_code = 200
+        # return resp
+        return "0"
 
 if __name__ == '__main__':
     global category_index
     directory_path = os.getcwd()
 
-    path = directory_path+"\Soncur"
+    path = directory_path+"\Model"
     labels_path = path+"\label_map.pbtxt"
 
     print('Loading model...', end='')
-    detect_fn=tf.saved_model.load(path)
+    detect_fn = tf.saved_model.load(path)
     print('Done!')
     category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
 
-    app.run(debug = False,host="0.0.0.0")
+    app.run(debug = True,host="localhost")
