@@ -5,6 +5,10 @@ from PIL import Image
 import os
 import label_map_util
 
+
+app = Flask(__name__)
+
+
 def load_image_into_numpy_array(path):
     return np.array(Image.open(path))
 max_detections = 1
@@ -16,8 +20,6 @@ print('Loading model...', end='')
 detect_fn = tf.saved_model.load(path)
 print('Done!')
 category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
-
-app = Flask(__name__)
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def home():
