@@ -42,9 +42,6 @@ def home():
         if(scores[0]*100 >= 98):
             return "1,"+str(labels[0])
         
-        # resp = jsonify({'scores': str(scores[0]),'labels': str(labels[0]),"Position": str(bboxes[0])})
-        # resp.status_code = 200
-        # return resp
         return "0"
 
 if __name__ == '__main__':
