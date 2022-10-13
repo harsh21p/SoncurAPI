@@ -16,7 +16,7 @@ labels_path = path+"\label_map.pbtxt"
 print('Loading model...', end='')
 detect_fn = tf.saved_model.load(path)
 print('Done!')
-category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
+#category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
 
 app = Flask(__name__)
 
