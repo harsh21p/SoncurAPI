@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__)
 
-@app.route('/upload', methods = ['GET', 'POST'])
+@app.route('/', methods = ['GET', 'POST'])
 def home():
     return render_template("home.html")
      
