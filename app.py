@@ -5,13 +5,23 @@ from PIL import Image
 from object_detection.utils import label_map_util
 import os
 
+app = Flask(__name__)
 
 def load_image_into_numpy_array(path):
     return np.array(Image.open(path))
 
 max_detections = 1
 
-app = Flask(__name__)
+global category_index
+directory_path = os.getcwd()
+
+path = directory_path+"\Model"
+labels_path = path+"\label_map.pbtxt"
+
+print('Loading model...', end='')
+detect_fn = tf.saved_model.load(path)
+print('Done!')
+category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def home():
@@ -45,15 +55,5 @@ def home():
         return "0"
 
 if __name__ == '__main__':
-    global category_index
-    directory_path = os.getcwd()
-
-    path = directory_path+"\Model"
-    labels_path = path+"\label_map.pbtxt"
-
-    print('Loading model...', end='')
-    detect_fn = tf.saved_model.load(path)
-    print('Done!')
-    category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
-
-    app.run(host="0.0.0.0",port=5000)
+    
+    app.run(host='0.0.0.0', port=5000)
