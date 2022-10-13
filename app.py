@@ -8,8 +8,15 @@ import os
 
 def load_image_into_numpy_array(path):
     return np.array(Image.open(path))
-
 max_detections = 1
+global category_index
+directory_path = os.getcwd()
+path = directory_path+"\Model"
+labels_path = path+"\label_map.pbtxt"
+print('Loading model...', end='')
+detect_fn = tf.saved_model.load(path)
+print('Done!')
+category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
 
 app = Flask(__name__)
 
@@ -41,22 +48,9 @@ def home():
         print(str(scores[0])+" "+str(labels[0]))
         if(scores[0]*100 >= 98):
             return "1,"+str(labels[0])
-        
-        # resp = jsonify({'scores': str(scores[0]),'labels': str(labels[0]),"Position": str(bboxes[0])})
-        # resp.status_code = 200
-        # return resp
+       
         return "0"
 
 if __name__ == '__main__':
-    global category_index
-    directory_path = os.getcwd()
-
-    path = directory_path+"\Model"
-    labels_path = path+"\label_map.pbtxt"
-
-    print('Loading model...', end='')
-    detect_fn = tf.saved_model.load(path)
-    print('Done!')
-    category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
-
+   
     app.run(host="0.0.0.0",port=5000)
