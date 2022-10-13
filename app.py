@@ -19,7 +19,7 @@ category_index = label_map_util.create_category_index_from_labelmap(labels_path,
 
 app = Flask(__name__)
 
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/upload', methods = ['GET', 'POST'])
 def home():
     global max_detections,category_index
     if(request.method == 'GET'):
