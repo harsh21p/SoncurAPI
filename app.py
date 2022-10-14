@@ -14,8 +14,8 @@ def load_image_into_numpy_array(path):
 max_detections = 1
 global category_index
 directory_path = os.getcwd()
-path = directory_path+"\Model"
-labels_path = path+"\label_map.pbtxt"
+path = directory_path+"/Model"
+labels_path = path+"/label_map.pbtxt"
 print('Loading model...', end='')
 detect_fn = tf.saved_model.load(path)
 print('Done!')
