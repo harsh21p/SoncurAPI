@@ -19,7 +19,7 @@ labels_path = path+"/label_map.pbtxt"
 print('Loading model...', end='')
 detect_fn = tf.saved_model.load(path)
 print('Done!')
-#category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
+category_index = label_map_util.create_category_index_from_labelmap(labels_path,use_display_name=True)
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def home():
@@ -37,18 +37,18 @@ def home():
 
         f = request.files['file']
 
-        #image_np = load_image_into_numpy_array(f)
-        #input_tensor = tf.convert_to_tensor(image_np)
-        #input_tensor = input_tensor[tf.newaxis, ...]
-        #detections = detect_fn(input_tensor)
+        image_np = load_image_into_numpy_array(f)
+        input_tensor = tf.convert_to_tensor(image_np)
+        input_tensor = input_tensor[tf.newaxis, ...]
+        detections = detect_fn(input_tensor)
 
-        #scores = detections['detection_scores'][0, :max_detections].numpy()
-        #bboxes = detections['detection_boxes'][0, :max_detections].numpy()
-        #labels = detections['detection_classes'][0, :max_detections].numpy().astype(np.int64)
-        #labels = [category_index[n]['name'] for n in labels]
-        #print(str(scores[0])+" "+str(labels[0]))
-        #if(scores[0]*100 >= 98):
-        #    return "1,"+str(labels[0])
+        scores = detections['detection_scores'][0, :max_detections].numpy()
+        bboxes = detections['detection_boxes'][0, :max_detections].numpy()
+        labels = detections['detection_classes'][0, :max_detections].numpy().astype(np.int64)
+        labels = [category_index[n]['name'] for n in labels]
+        print(str(scores[0])+" "+str(labels[0]))
+        if(scores[0]*100 >= 98):
+            return "1,"+str(labels[0])
         
         return "0,"+str(labels[0])
 
