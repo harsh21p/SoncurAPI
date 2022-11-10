@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'Soncur'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_81E7ED1DD4B6428BA7C5B2E380F8514A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5578CFAE75934DA0AD8AE871C8A5C4AF }}
