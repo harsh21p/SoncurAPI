@@ -47,7 +47,7 @@ def home():
         labels = detections['detection_classes'][0, :max_detections].numpy().astype(np.int64)
         labels = [category_index[n]['name'] for n in labels]
         print(str(scores[0])+" "+str(labels[0]))
-        if(scores[0]*100 >= 98):
+        if(scores[0]*100 >= 97):
             return "1,"+str(labels[0])
         
         return "0,"+str(labels[0])
